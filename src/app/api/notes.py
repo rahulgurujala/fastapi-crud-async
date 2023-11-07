@@ -12,12 +12,11 @@ router = APIRouter()
 async def create_note(payload: NoteSchema):
     note_id = await crud.post(payload)
 
-    response_object = {
+    return {
         "id": note_id,
         "title": payload.title,
         "description": payload.description,
     }
-    return response_object
 
 
 @router.get("/{id}/", response_model=NoteDB)
@@ -41,12 +40,11 @@ async def update_note(payload: NoteSchema, id: int = Path(..., gt=0),):
 
     note_id = await crud.put(id, payload)
 
-    response_object = {
+    return {
         "id": note_id,
         "title": payload.title,
         "description": payload.description,
     }
-    return response_object
 
 
 @router.delete("/{id}/", response_model=NoteDB)
